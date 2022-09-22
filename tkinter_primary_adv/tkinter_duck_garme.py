@@ -24,6 +24,7 @@ def main_action():
     if key == "Right": # 오른쪽 방향키를 누르면
         duck_x += 20  # x좌표 20팍샐 증가(오른쪽으로 이동)
     canvas.coords("DUCK", duck_x, duck_y)  # 이미지 새 위치로
+        
     root.after(100, main_action) # 0.1초후 다시 실행
 
 root = tkinter.Tk()

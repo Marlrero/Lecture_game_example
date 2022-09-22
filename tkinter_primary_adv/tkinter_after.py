@@ -1,12 +1,17 @@
 import tkinter
+import tkinter.messagebox
 
-timer = 0  # 시간을 카운트 하는 변수
+timer = 5  # 시간을 카운트 하는 변수
 
 def count_up():
 	global timer  # timer는 전역 변수
-	timer += 1    # timer = timer + 1
-	label["text"] = timer
-	root.after(1000, count_up)  # 1초 뒤 다시 이 함수를 실행
+ 
+	if timer == 0:
+		tkinter.messagebox.showinfo("땡!", "땡!")
+	else:
+		timer -= 1    # timer = timer + 1
+		label["text"] = timer
+		root.after(1000, count_up)  # 1초 뒤 다시 이 함수를 실행
 
 root = tkinter.Tk()
 label = tkinter.Label(font=("Time New Roman", 80))
