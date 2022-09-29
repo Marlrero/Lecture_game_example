@@ -1,5 +1,11 @@
 import tkinter as tk
+import tkinter.messagebox as msgbox
 from PIL import Image, ImageTk
+
+ROWS, COLS = 7, 10
+
+is_clear = 0
+
 # 미로 설정
 maze = [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
@@ -26,7 +32,7 @@ def key_up(e):   # 키를 뗄 때 발생하는 이벤트 처리 함수
     key = ""
 
 def main_action():
-    global dog_x, dog_y
+    global dog_x, dog_y, is_clear
     if key == "Up" and maze[dog_y - 1][dog_x] == 0: # 위키를 누르고 통로이면
         dog_y -= 1  # 위로 한 칸 가기
     if key == "Down" and maze[dog_y + 1][dog_x] == 0:  # 아래키를 누르고 통로이면
@@ -35,9 +41,25 @@ def main_action():
         dog_x -= 1  # 왼쪽으로 한 칸 가기
     if key == "Right" and maze[dog_y][dog_x + 1] == 0: # 오른쪽키를 누르고 통로이면
         dog_x += 1  # 오른쪽으로 한 칸 가기
-    canvas.coords("DOG", dog_x*80 + 40, dog_y*80 + 40) 
+
+    if maze[dog_y][dog_x] == 0: # 캐릭터가 있는 장소가 통로라면
+        maze[dog_y][dog_x] = 2  # 리스트 값을 2로 변경하고 사각형 다시 그리기
+        is_clear += 1
+        canvas.create_rectangle(dog_x*80, dog_y*80, dog_x*80 + 79, dog_y*80 + 79, \
+                                fill="yellow", width=0)
+    # 사각형을 그렸으니 그 장소에 있는 강아지가 안보이므로 삭제하고 다시 그리기
+    canvas.delete("DOG")  
+    canvas.create_image(dog_x*80 + 40, dog_y*80 + 40, image=dog, tag="DOG")
+    
+    if is_clear == 30: # 30개 칸이 모두 칠해졌으면
+        canvas.update()
+        msgbox.showinfo("Game Clear!", "모든 곳을 칠했습니다!")
+    else: 
+        root.after(200, main_action)  # 0.2초후 이 함수 재실행
+
+    #canvas.coords("DOG", dog_x*80 + 40, dog_y*80 + 40) 
     # 새로운 위치로 이동 (80픽셀 움직임)
-    root.after(200, main_action)  # 0.2초후 이 함수 재실행
+    #root.after(200, main_action)  # 0.2초후 이 함수 재실행
 
 root = tk.Tk()
 root.title("Maze Game")
@@ -50,8 +72,8 @@ root.bind("<KeyPress>", key_down)
 root.bind("<KeyRelease>", key_up)
 
 # 아래부터 2차원 리스트를 사각형으로 뿌리기
-for y in range(7):
-    for x in range(10):
+for y in ROWS:
+    for x in COLS:
         if maze[y][x] == 1: # 벽이면
             canvas.create_rectangle(x*80, y*80, x*80 + 80, y*80 + 80, fill="gray")
             
