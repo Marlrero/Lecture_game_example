@@ -28,20 +28,31 @@ def mouse_move(e): # 마우스 움직일 때 이벤트 함수
     mouse_x = e.x
     mouse_y = e.y
 
+def drop_cat(): # 고양이가 위에서 떨어져야 함
+    for y in range(BLOCK_SIZE[0], -1, -1): # 8부터 0까지 1씩 감소
+        for x in range(BLOCK_SIZE[0]):   # 0부터 7까지 1씩 증가
+            # 고양이가 있어야 하고, 아래로 내려갈 때 비어 있으면
+            if cat_loc[y][x] != 0 and cat_loc[y + 1][x] == 0:
+                cat_loc[y + 1][x] = cat_loc[y][x] # 아래로 내려가
+                cat_loc[y][x] = 0 # 원래 있던 곳은 고양이가 없어짐
+
+
 def draw_cat():
     for y in range(BLOCK_SIZE[1]):
         for x in range(BLOCK_SIZE[0]):
             if cat_loc[y][x] > 0:
                 cvs.create_image(x*BLOCK_PIXEL + 60, y*BLOCK_PIXEL + 60, \
-                    image=IMG_CAT[cat_loc[y][x]])
+                    image=IMG_CAT[cat_loc[y][x]], tag="CAT")
 
 def main_action(): # 실시간 처리 함수
     global cursor_x, cursor_y
+    drop_cat()
     if CUR_LIMIT <= mouse_x < CUR_LIMIT + BLOCK_PIXEL * BLOCK_SIZE[0] \
         and CUR_LIMIT <= mouse_y < CUR_LIMIT + BLOCK_PIXEL * BLOCK_SIZE[1]:
         cursor_x = int((mouse_x - CUR_LIMIT) / BLOCK_PIXEL)
         cursor_y = int((mouse_y - CUR_LIMIT) / BLOCK_PIXEL)
     
+    cvs.delete('CAT')
     cvs.delete("CURSOR")
     cvs.create_image(cursor_x * BLOCK_PIXEL + 60, cursor_y * BLOCK_PIXEL + 60,\
                      image=cursor, tag="CURSOR")
