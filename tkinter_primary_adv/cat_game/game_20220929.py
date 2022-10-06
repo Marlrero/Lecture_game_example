@@ -29,6 +29,18 @@ def main_action(): # 실시간 처리 함수
 
 
 root = tk.Tk()
+
+IMG_CAT = [
+    None,      # 0은 아무것도 없음(cat_loc에서)
+    tk.PhotoImage(file="resource/neko1.png"),
+    tk.PhotoImage(file="resource/neko2.png"),
+    tk.PhotoImage(file="resource/neko3.png"),
+    tk.PhotoImage(file="resource/neko4.png"),
+    tk.PhotoImage(file="resource/neko5.png"),
+    tk.PhotoImage(file="resource/neko6.png"),
+    tk.PhotoImage(file="resource/neko_niku.png")
+]
+
 root.title("AniPang")
 root.resizable(False, False)
 cvs = tk.Canvas(root, width=BG_SIZE[0], height=BG_SIZE[1]) # background size
