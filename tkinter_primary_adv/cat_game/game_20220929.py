@@ -52,7 +52,7 @@ def draw_cat():
 
 
 def main_action(): # 실시간 처리 함수
-    global cursor_x, cursor_y
+    global cursor_x, cursor_y, mouse_c
     drop_cat()
     
     if CUR_LIMIT <= mouse_x < CUR_LIMIT + BLOCK_PIXEL * BLOCK_SIZE[0] \
