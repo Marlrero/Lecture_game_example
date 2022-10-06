@@ -28,6 +28,13 @@ def mouse_move(e): # 마우스 움직일 때 이벤트 함수
     mouse_x = e.x
     mouse_y = e.y
 
+def draw_cat():
+    for y in range(BLOCK_SIZE[1]):
+        for x in range(BLOCK_SIZE[0]):
+            if cat_loc[y][x] > 0:
+                cvs.create_image(x*BLOCK_PIXEL + 60, y*BLOCK_PIXEL + 60, \
+                    image=IMG_CAT[cat_loc[y][x]])
+
 def main_action(): # 실시간 처리 함수
     global cursor_x, cursor_y
     if CUR_LIMIT <= mouse_x < CUR_LIMIT + BLOCK_PIXEL * BLOCK_SIZE[0] \
@@ -38,6 +45,8 @@ def main_action(): # 실시간 처리 함수
     cvs.delete("CURSOR")
     cvs.create_image(cursor_x * BLOCK_PIXEL + 60, cursor_y * BLOCK_PIXEL + 60,\
                      image=cursor, tag="CURSOR")
+    
+    draw_cat()   # 실시간으로 계속 고양이 위치를 찾아 그려야 함
     root.after(100, main_action)
 
 
