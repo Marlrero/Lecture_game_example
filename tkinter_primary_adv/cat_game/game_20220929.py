@@ -60,10 +60,10 @@ def main_action(): # 실시간 처리 함수
         cursor_x = int((mouse_x - CUR_LIMIT) / BLOCK_PIXEL)
         cursor_y = int((mouse_y - CUR_LIMIT) / BLOCK_PIXEL)
     
-    if mouse_c == 1: # 마우스를 클릭했으면
-        mouse_c = 0  # 마우스 클릭 변수 초기화
-        # 커서 위치 칸에 무작위 고양이 놓기
-        cat_loc[cursor_y][cursor_x] = random.randint(1, 6)
+        if mouse_c == 1: # 마우스를 클릭했으면
+            mouse_c = 0  # 마우스 클릭 변수 초기화
+            # 커서 위치 칸에 무작위 고양이 놓기
+            cat_loc[cursor_y][cursor_x] = random.randint(1, 6)
     
     cvs.delete('CAT')
     cvs.delete("CURSOR")
