@@ -1,4 +1,8 @@
 # Lecture_game_example
+### 강의 자료 공유
+- 저작권: 배재대학교 AISW중심대학사업단, 배재대학교 컴퓨터공학과 이태준
+- upload: 2023. 11. 1
+
 ### 파이썬 + 비주얼 스튜디오 코드 환경 설정
 - 윈도우: https://learn.microsoft.com/ko-kr/training/modules/python-install-vscode/
 - 맥: https://nadocoding.tistory.com/101
